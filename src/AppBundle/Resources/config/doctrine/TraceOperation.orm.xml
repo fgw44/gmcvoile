@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\TraceOperation" table="trace_operation">
+    <indexes>
+      <index name="fk_trace_operation_saison" columns="trc_sai_annee"/>
+    </indexes>
+    <id name="trcId" type="integer" column="trc_id"/>
+    <id name="trcSaiAnnee" association-key="true"/>
+    <field name="trcLibOpe" type="string" column="trc_lib_ope" length="2000" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="trcDateHeure" type="datetime" column="trc_date_heure" nullable="false"/>
+    <field name="trcOperateur" type="string" column="trc_operateur" length="150" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <one-to-one field="trcSaiAnnee" target-entity="Saison" fetch="LAZY">
+      <join-columns>
+        <join-column name="trc_sai_annee" referenced-column-name="sai_annee"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

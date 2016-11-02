@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Reglement" table="reglement">
+    <indexes>
+      <index name="fk_reglement_adherent" columns="reg_adh_num"/>
+      <index name="fk_reglement_type_reglement" columns="reg_tyr_code"/>
+      <index name="fk_reglement_panier1" columns="reg_pan_id"/>
+    </indexes>
+    <id name="regId" type="integer" column="reg_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="regMontant" type="decimal" column="reg_montant" precision="8" scale="2" nullable="false"/>
+    <field name="regDate" type="date" column="reg_date" nullable="false"/>
+    <field name="regCommentaire" type="string" column="reg_commentaire" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="regTransId" type="string" column="reg_trans_id" length="20" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="regTransDateCb" type="string" column="reg_trans_date_cb" length="14" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="regNumCb" type="string" column="reg_num_cb" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="regMoisExpCb" type="string" column="reg_mois_exp_cb" length="2" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="regAnneeExpCb" type="string" column="reg_annee_exp_cb" length="4" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="regNumAutorCb" type="string" column="reg_num_autor_cb" length="6" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="regModeAutorCb" type="string" column="reg_mode_autor_cb" length="4" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="regGarantieCb" type="string" column="reg_garantie_cb" length="5" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="regCertificatCb" type="string" column="reg_certificat_cb" length="40" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="regPaysCb" type="string" column="reg_pays_cb" length="3" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="regNumChq" type="string" column="reg_num_chq" length="20" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="regCodeBanque" type="string" column="reg_code_banque" length="4" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="regUtiCrea" type="string" column="reg_uti_crea" length="150" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="regDatCrea" type="datetime" column="reg_dat_crea" nullable="false"/>
+    <field name="regUtiModi" type="string" column="reg_uti_modi" length="150" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="regDatModi" type="datetime" column="reg_dat_modi" nullable="true"/>
+    <many-to-one field="regAdhNum" target-entity="Adherent" fetch="LAZY">
+      <join-columns>
+        <join-column name="reg_adh_num" referenced-column-name="adh_num"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="regPan" target-entity="Panier" fetch="LAZY">
+      <join-columns>
+        <join-column name="reg_pan_id" referenced-column-name="pan_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="regTyrCode" target-entity="TypeReglement" fetch="LAZY">
+      <join-columns>
+        <join-column name="reg_tyr_code" referenced-column-name="tyr_code"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

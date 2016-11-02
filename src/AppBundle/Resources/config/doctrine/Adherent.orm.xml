@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Adherent" table="adherent">
+    <indexes>
+      <index name="fk_adherent_pays" columns="adh_pay_code"/>
+      <index name="fk_adherent_niveau" columns="adh_niv_code"/>
+      <index name="idx_is_supprime" columns="adh_is_supprime"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="idx_web_username" columns="adh_web_username"/>
+    </unique-constraints>
+    <id name="adhNum" type="integer" column="adh_num">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="adhNom" type="string" column="adh_nom" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Nom de famille</option>
+      </options>
+    </field>
+    <field name="adhPrenom" type="string" column="adh_prenom" length="30" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Prénom</option>
+      </options>
+    </field>
+    <field name="adhCodeSexe" type="string" column="adh_code_sexe" length="1" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="adhDatnai" type="date" column="adh_datnai" nullable="true">
+      <options>
+        <option name="comment">Date de naissance</option>
+      </options>
+    </field>
+    <field name="adhProfession" type="string" column="adh_profession" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Profession</option>
+      </options>
+    </field>
+    <field name="adhVolent" type="boolean" column="adh_volent" nullable="true">
+      <options>
+        <option name="comment">Volontaire entretien (o/n)</option>
+      </options>
+    </field>
+    <field name="adhVolperm" type="boolean" column="adh_volperm" nullable="true">
+      <options>
+        <option name="comment">Volontaire permanence (o/n)</option>
+      </options>
+    </field>
+    <field name="adhConnupar" type="string" column="adh_connupar" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Connu par (ami, internet ...)</option>
+      </options>
+    </field>
+    <field name="adhUrgNom" type="string" column="adh_urg_nom" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Nom personne à contacter en cas d'urgence</option>
+      </options>
+    </field>
+    <field name="adhUrgPrenom" type="string" column="adh_urg_prenom" length="30" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Prénom personne à contacter en cas d'urgence</option>
+      </options>
+    </field>
+    <field name="adhUrgTel" type="string" column="adh_urg_tel" length="15" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Téléphone personne à contacter en cas d'urgence</option>
+      </options>
+    </field>
+    <field name="adhAdresse1" type="string" column="adh_adresse1" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Adresse ligne 1</option>
+      </options>
+    </field>
+    <field name="adhAdresse2" type="string" column="adh_adresse2" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Adresse ligne 2</option>
+      </options>
+    </field>
+    <field name="adhCp" type="string" column="adh_cp" length="10" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Adresse code postal</option>
+      </options>
+    </field>
+    <field name="adhVille" type="string" column="adh_ville" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Adresse ville</option>
+      </options>
+    </field>
+    <field name="adhTelFixe" type="string" column="adh_tel_fixe" length="15" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Téléphone fixe</option>
+      </options>
+    </field>
+    <field name="adhTelPort" type="string" column="adh_tel_port" length="15" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Téléphone portable</option>
+      </options>
+    </field>
+    <field name="adhEmail" type="string" column="adh_email" length="80" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Email</option>
+      </options>
+    </field>
+    <field name="adhOptout" type="boolean" column="adh_optout" nullable="true">
+      <options>
+        <option name="comment">Opt-out e-mailing (ne souhaite pas recevoir d'e-mailing)</option>
+      </options>
+    </field>
+    <field name="adhIschef" type="boolean" column="adh_ischef" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="adhUtiCrea" type="string" column="adh_uti_crea" length="150" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="adhDatCrea" type="datetime" column="adh_dat_crea" nullable="false"/>
+    <field name="adhUtiModi" type="string" column="adh_uti_modi" length="150" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="adhDatModi" type="datetime" column="adh_dat_modi" nullable="true"/>
+    <field name="adhWebUsername" type="string" column="adh_web_username" length="150" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="adhIsSupprime" type="boolean" column="adh_is_supprime" nullable="true">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="adhMotifSuppr" type="string" column="adh_motif_suppr" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="adhIsactif" type="boolean" column="adh_isactif" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="adhIscodir" type="boolean" column="adh_iscodir" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <many-to-one field="adhNivCode" target-entity="Niveau" fetch="LAZY">
+      <join-columns>
+        <join-column name="adh_niv_code" referenced-column-name="niv_code"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="adhPayCode" target-entity="Pays" fetch="LAZY">
+      <join-columns>
+        <join-column name="adh_pay_code" referenced-column-name="pay_code"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

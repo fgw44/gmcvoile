@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Inscription" table="inscription">
+    <indexes>
+      <index name="fk_inscription_adherent" columns="ins_adh_num"/>
+      <index name="fk_inscription_stage" columns="ins_sta_id"/>
+      <index name="fk_inscription_etat_inscription1" columns="ins_eta_code"/>
+    </indexes>
+    <id name="insAdhNum" association-key="true"/>
+    <id name="insSta" association-key="true"/>
+    <field name="insMtAvRemise" type="decimal" column="ins_mt_av_remise" precision="8" scale="2" nullable="false"/>
+    <field name="insTxRemise" type="decimal" column="ins_tx_remise" precision="5" scale="2" nullable="false"/>
+    <field name="insMtRemise" type="decimal" column="ins_mt_remise" precision="8" scale="2" nullable="false"/>
+    <field name="insMotifsRemise" type="string" column="ins_motifs_remise" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="insMtApRemise" type="decimal" column="ins_mt_ap_remise" precision="8" scale="2" nullable="false"/>
+    <field name="insIsForce" type="boolean" column="ins_is_force" nullable="true">
+      <options>
+        <option name="comment">Indicateur de forçage du tarif</option>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="insMtAvoir" type="decimal" column="ins_mt_avoir" precision="8" scale="2" nullable="false">
+      <options>
+        <option name="default">0.00</option>
+      </options>
+    </field>
+    <field name="insMtRegle" type="decimal" column="ins_mt_regle" precision="8" scale="2" nullable="false">
+      <options>
+        <option name="comment">Montant regle hors avoir</option>
+        <option name="default">0.00</option>
+      </options>
+    </field>
+    <field name="insIsRegle" type="boolean" column="ins_is_regle" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="insCommentaire" type="string" column="ins_commentaire" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="insIsRetardReglement" type="boolean" column="ins_is_retard_reglement" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="insDatDernRelance" type="datetime" column="ins_dat_dern_relance" nullable="true"/>
+    <field name="insIsRelanceEbqEnv" type="boolean" column="ins_is_relance_ebq_env" nullable="true">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="insIsInscriptionChef" type="boolean" column="ins_is_inscription_chef" nullable="true">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="insIsAnnule" type="boolean" column="ins_is_annule" nullable="true">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="insUtiCrea" type="string" column="ins_uti_crea" length="150" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="insDatCrea" type="datetime" column="ins_dat_crea" nullable="false"/>
+    <field name="insUtiModi" type="string" column="ins_uti_modi" length="150" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="insDatModi" type="datetime" column="ins_dat_modi" nullable="true"/>
+    <one-to-one field="insAdhNum" target-entity="Adherent" fetch="LAZY">
+      <join-columns>
+        <join-column name="ins_adh_num" referenced-column-name="adh_num"/>
+      </join-columns>
+    </one-to-one>
+    <one-to-one field="insSta" target-entity="Stage" fetch="LAZY">
+      <join-columns>
+        <join-column name="ins_sta_id" referenced-column-name="sta_id"/>
+      </join-columns>
+    </one-to-one>
+    <many-to-one field="insEtaCode" target-entity="EtatInscription" fetch="LAZY">
+      <join-columns>
+        <join-column name="ins_eta_code" referenced-column-name="eta_code"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="paninsPan" target-entity="Panier" mapped-by="paninsInsAdhNum" fetch="LAZY"/>
+  </entity>
+</doctrine-mapping>

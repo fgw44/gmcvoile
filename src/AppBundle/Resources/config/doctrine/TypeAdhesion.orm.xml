@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\TypeAdhesion" table="type_adhesion">
+    <id name="tyaCode" type="string" column="tya_code" length="3">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="tyaLibelle" type="string" column="tya_libelle" length="100" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-many field="mtaSaiAnnee" target-entity="Saison" inversed-by="mtaTyaCode" fetch="LAZY">
+      <join-table name="montant_adhesion">
+        <join-columns>
+          <join-column name="mta_tya_code" referenced-column-name="tya_code"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="mta_sai_annee" referenced-column-name="sai_annee"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

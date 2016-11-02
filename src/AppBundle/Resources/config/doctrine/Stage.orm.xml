@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Stage" table="stage">
+    <indexes>
+      <index name="fk_stage_saison" columns="sta_sai_annee"/>
+      <index name="fk_stage_adherent" columns="sta_adh_num_chef"/>
+      <index name="fk_stage_bateau" columns="sta_bat_id"/>
+      <index name="fk_stage_port" columns="sta_por_code_dep"/>
+      <index name="fk_stage_port1" columns="sta_por_code_arr"/>
+      <index name="fk_stage_adherent1_idx" columns="sta_secu_adh_num"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="ui_stage_annee_code" columns="sta_sai_annee,sta_code"/>
+    </unique-constraints>
+    <id name="staId" type="integer" column="sta_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="staCode" type="string" column="sta_code" length="15" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="staDatdeb" type="date" column="sta_datdeb" nullable="false">
+      <options>
+        <option name="comment">Date début stage</option>
+      </options>
+    </field>
+    <field name="staDatfin" type="date" column="sta_datfin" nullable="false">
+      <options>
+        <option name="comment">Date fin stage</option>
+      </options>
+    </field>
+    <field name="staNbJours" type="smallint" column="sta_nb_jours" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="staTarifStagiaire" type="decimal" column="sta_tarif_stagiaire" precision="8" scale="2" nullable="false">
+      <options>
+        <option name="comment">Tarif du stage</option>
+      </options>
+    </field>
+    <field name="staTarifChef" type="decimal" column="sta_tarif_chef" precision="8" scale="2" nullable="false">
+      <options>
+        <option name="comment">Tarif chef de bord</option>
+        <option name="default">0.00</option>
+      </options>
+    </field>
+    <field name="staNbPlaces" type="boolean" column="sta_nb_places" nullable="false">
+      <options>
+        <option name="comment">Nb de places hors chef de bord</option>
+      </options>
+    </field>
+    <field name="staDesc" type="string" column="sta_desc" length="500" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Programme du stage</option>
+      </options>
+    </field>
+    <field name="staIsvisible" type="boolean" column="sta_isvisible" nullable="true">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="staIsAnnule" type="boolean" column="sta_is_annule" nullable="true">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="staDatDernEnvListe" type="datetime" column="sta_dat_dern_env_liste" nullable="true"/>
+    <field name="staStatPreIns" type="smallint" column="sta_stat_pre_ins" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="staStatNonPaye" type="smallint" column="sta_stat_non_paye" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="staStatAcompte" type="smallint" column="sta_stat_acompte" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="staStatPaye" type="smallint" column="sta_stat_paye" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="staStatDispo" type="smallint" column="sta_stat_dispo" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="staStatBloque" type="smallint" column="sta_stat_bloque" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="staStatDatBlocage" type="date" column="sta_stat_dat_blocage" nullable="true"/>
+    <field name="staStatMotifBlocage" type="string" column="sta_stat_motif_blocage" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="staUtiCrea" type="string" column="sta_uti_crea" length="150" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Utilisateur création</option>
+      </options>
+    </field>
+    <field name="staDatCrea" type="datetime" column="sta_dat_crea" nullable="false">
+      <options>
+        <option name="comment">Date / heure création</option>
+      </options>
+    </field>
+    <field name="staUtiModi" type="string" column="sta_uti_modi" length="150" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Utilisateur modif</option>
+      </options>
+    </field>
+    <field name="staDatModi" type="datetime" column="sta_dat_modi" nullable="true">
+      <options>
+        <option name="comment">Date / heure modif</option>
+      </options>
+    </field>
+    <field name="staSecuActive" type="boolean" column="sta_secu_active" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="staChefsOnly" type="boolean" column="sta_chefs_only" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="staActifsOnly" type="boolean" column="sta_actifs_only" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="staSansRemise" type="boolean" column="sta_sans_remise" nullable="false">
+      <options>
+        <option name="comment">Pas de remise sur ce stage</option>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <many-to-one field="staAdhNumChef" target-entity="Adherent" fetch="LAZY">
+      <join-columns>
+        <join-column name="sta_adh_num_chef" referenced-column-name="adh_num"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="staSecuAdhNum" target-entity="Adherent" fetch="LAZY">
+      <join-columns>
+        <join-column name="sta_secu_adh_num" referenced-column-name="adh_num"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="staBat" target-entity="Bateau" fetch="LAZY">
+      <join-columns>
+        <join-column name="sta_bat_id" referenced-column-name="bat_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="staPorCodeDep" target-entity="Port" fetch="LAZY">
+      <join-columns>
+        <join-column name="sta_por_code_dep" referenced-column-name="por_code"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="staPorCodeArr" target-entity="Port" fetch="LAZY">
+      <join-columns>
+        <join-column name="sta_por_code_arr" referenced-column-name="por_code"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="staSaiAnnee" target-entity="Saison" fetch="LAZY">
+      <join-columns>
+        <join-column name="sta_sai_annee" referenced-column-name="sai_annee"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Avoir" table="avoir">
+    <indexes>
+      <index name="fk_avoir_adherent1" columns="avr_adh_num"/>
+    </indexes>
+    <id name="avrId" type="integer" column="avr_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="avrDate" type="date" column="avr_date" nullable="false"/>
+    <field name="avrMontant" type="decimal" column="avr_montant" precision="8" scale="2" nullable="false"/>
+    <field name="avrSolde" type="decimal" column="avr_solde" precision="8" scale="2" nullable="false"/>
+    <field name="avrMotif" type="string" column="avr_motif" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="avrDatLimite" type="datetime" column="avr_dat_limite" nullable="true"/>
+    <field name="avrUtiCrea" type="string" column="avr_uti_crea" length="150" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="avrDatCrea" type="datetime" column="avr_dat_crea" nullable="false"/>
+    <field name="avrUtiModi" type="string" column="avr_uti_modi" length="150" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="avrDatModi" type="datetime" column="avr_dat_modi" nullable="true"/>
+    <many-to-one field="avrAdhNum" target-entity="Adherent" fetch="LAZY">
+      <join-columns>
+        <join-column name="avr_adh_num" referenced-column-name="adh_num"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Mouvement" table="mouvement">
+    <indexes>
+      <index name="fk_mouvement_compte" columns="mvt_cpt_num"/>
+      <index name="fk_mouvement_adherent" columns="mvt_adh_num"/>
+    </indexes>
+    <id name="mvtId" type="integer" column="mvt_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="mvtDate" type="date" column="mvt_date" nullable="false"/>
+    <field name="mvtMtDebit" type="decimal" column="mvt_mt_debit" precision="8" scale="2" nullable="true"/>
+    <field name="mvtMtCredit" type="decimal" column="mvt_mt_credit" precision="8" scale="2" nullable="true"/>
+    <field name="mvtMotif" type="string" column="mvt_motif" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="mvtUtiCrea" type="string" column="mvt_uti_crea" length="150" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="mvtDatCrea" type="datetime" column="mvt_dat_crea" nullable="false"/>
+    <many-to-one field="mvtAdhNum" target-entity="Adherent" fetch="LAZY">
+      <join-columns>
+        <join-column name="mvt_adh_num" referenced-column-name="adh_num"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="mvtCptNum" target-entity="Compte" fetch="LAZY">
+      <join-columns>
+        <join-column name="mvt_cpt_num" referenced-column-name="cpt_num"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

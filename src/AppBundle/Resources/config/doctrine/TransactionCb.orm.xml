@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\TransactionCb" table="transaction_cb">
+    <indexes>
+      <index name="fk_transaction_cb_panier1" columns="tcb_pan_id"/>
+    </indexes>
+    <id name="tcbId" type="integer" column="tcb_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="tcbDatCrea" type="datetime" column="tcb_dat_crea" nullable="false">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
+    <field name="tcbAnnee" type="smallint" column="tcb_annee" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="tcbTransId" type="integer" column="tcb_trans_id" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <many-to-one field="tcbPan" target-entity="Panier" fetch="LAZY">
+      <join-columns>
+        <join-column name="tcb_pan_id" referenced-column-name="pan_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

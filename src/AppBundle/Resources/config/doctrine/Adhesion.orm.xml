@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Adhesion" table="adhesion">
+    <indexes>
+      <index name="fk_adhesion_saison" columns="ads_sai_annee"/>
+      <index name="fk_adhesion_adherent" columns="ads_adh_num"/>
+      <index name="fk_adhesion_type_adhesion" columns="ads_tya_code"/>
+    </indexes>
+    <id name="adsAdhNum" association-key="true"/>
+    <id name="adsSaiAnnee" association-key="true"/>
+    <field name="adsDate" type="date" column="ads_date" nullable="false"/>
+    <field name="adsMtAvoir" type="decimal" column="ads_mt_avoir" precision="8" scale="2" nullable="false"/>
+    <field name="adsMtRegle" type="decimal" column="ads_mt_regle" precision="8" scale="2" nullable="false">
+      <options>
+        <option name="comment">Montant regle hors avoir</option>
+        <option name="default">0.00</option>
+      </options>
+    </field>
+    <field name="adsIsRegle" type="boolean" column="ads_is_regle" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="adsIsRetardReglement" type="boolean" column="ads_is_retard_reglement" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="adsIsAnneeSuivante" type="boolean" column="ads_is_annee_suivante" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="adsUtiCrea" type="string" column="ads_uti_crea" length="150" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="adsDatCrea" type="datetime" column="ads_dat_crea" nullable="false"/>
+    <field name="adsUtiModi" type="string" column="ads_uti_modi" length="150" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="adsDatModi" type="datetime" column="ads_dat_modi" nullable="true"/>
+    <one-to-one field="adsAdhNum" target-entity="Adherent" fetch="LAZY">
+      <join-columns>
+        <join-column name="ads_adh_num" referenced-column-name="adh_num"/>
+      </join-columns>
+    </one-to-one>
+    <one-to-one field="adsSaiAnnee" target-entity="Saison" fetch="LAZY">
+      <join-columns>
+        <join-column name="ads_sai_annee" referenced-column-name="sai_annee"/>
+      </join-columns>
+    </one-to-one>
+    <many-to-one field="adsTyaCode" target-entity="TypeAdhesion" fetch="LAZY">
+      <join-columns>
+        <join-column name="ads_tya_code" referenced-column-name="tya_code"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="panadsPan" target-entity="Panier" mapped-by="panadsAdsSaiAnnee" fetch="LAZY"/>
+  </entity>
+</doctrine-mapping>

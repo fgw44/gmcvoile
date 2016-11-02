@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Panier" table="panier">
+    <indexes>
+      <index name="fk_panier_adherent" columns="pan_adh_num"/>
+    </indexes>
+    <id name="panId" type="integer" column="pan_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="panRef" type="string" column="pan_ref" length="20" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="panEtatPaiement" type="string" column="pan_etat_paiement" length="1" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">O pour Oui, N pour Non, P pour Partiel</option>
+        <option name="default">N</option>
+      </options>
+    </field>
+    <field name="panTyrCode" type="string" column="pan_tyr_code" length="3" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="panModalite" type="string" column="pan_modalite" length="2" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="panEcheances" type="string" column="pan_echeances" length="21" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Echéances de reglement : dates séparées par des ';'</option>
+      </options>
+    </field>
+    <field name="panUtiCrea" type="string" column="pan_uti_crea" length="150" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="panDatCrea" type="datetime" column="pan_dat_crea" nullable="false"/>
+    <field name="panUtiModi" type="string" column="pan_uti_modi" length="150" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="panDatModi" type="datetime" column="pan_dat_modi" nullable="true"/>
+    <many-to-one field="panAdhNum" target-entity="Adherent" fetch="LAZY">
+      <join-columns>
+        <join-column name="pan_adh_num" referenced-column-name="adh_num"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="panadsAdsSaiAnnee" target-entity="Adhesion" inversed-by="panadsPan" fetch="LAZY">
+      <join-table name="panads">
+        <join-columns>
+          <join-column name="panads_pan_id" referenced-column-name="pan_id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="panads_ads_sai_annee" referenced-column-name="ads_sai_annee"/>
+          <join-column name="panads_ads_adh_num" referenced-column-name="ads_adh_num"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+    <many-to-many field="paninsInsAdhNum" target-entity="Inscription" inversed-by="paninsPan" fetch="LAZY">
+      <join-table name="panins">
+        <join-columns>
+          <join-column name="panins_pan_id" referenced-column-name="pan_id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="panins_ins_adh_num" referenced-column-name="ins_adh_num"/>
+          <join-column name="panins_ins_sta_id" referenced-column-name="ins_sta_id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+    <many-to-many field="panlicLicSaiAnnee" target-entity="Licence" inversed-by="panlicPan" fetch="LAZY">
+      <join-table name="panlic">
+        <join-columns>
+          <join-column name="panlic_pan_id" referenced-column-name="pan_id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="panlic_lic_sai_annee" referenced-column-name="lic_sai_annee"/>
+          <join-column name="panlic_lic_adh_num" referenced-column-name="lic_adh_num"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

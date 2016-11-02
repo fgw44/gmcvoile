@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Bateau" table="bateau">
+    <id name="batId" type="integer" column="bat_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="batCode" type="string" column="bat_code" length="5" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Code bateau</option>
+      </options>
+    </field>
+    <field name="batNom" type="string" column="bat_nom" length="30" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Nom bateau</option>
+      </options>
+    </field>
+    <field name="batTypeCt" type="string" column="bat_type_ct" length="15" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">Type bateau</option>
+      </options>
+    </field>
+    <field name="batTypeLg" type="string" column="bat_type_lg" length="30" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="batDatConstruction" type="date" column="bat_dat_construction" nullable="true">
+      <options>
+        <option name="comment">Date de construction du bateau</option>
+      </options>
+    </field>
+    <field name="batDatAchat" type="date" column="bat_dat_achat" nullable="true">
+      <options>
+        <option name="comment">Date d'achat du bateau</option>
+      </options>
+    </field>
+    <field name="batDatVente" type="date" column="bat_dat_vente" nullable="true">
+      <options>
+        <option name="comment">Date vente du bateau</option>
+      </options>
+    </field>
+    <field name="batIslocation" type="boolean" column="bat_islocation" nullable="true">
+      <options>
+        <option name="comment">Est un bateau de location</option>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="batIsactif" type="boolean" column="bat_isactif" nullable="true">
+      <options>
+        <option name="comment">Est actif</option>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="batUtiCrea" type="string" column="bat_uti_crea" length="150" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">fwilliams</option>
+      </options>
+    </field>
+    <field name="batDatCrea" type="datetime" column="bat_dat_crea" nullable="false">
+      <options>
+        <option name="default">2011-01-01 12:00:00</option>
+      </options>
+    </field>
+    <field name="batUtiModi" type="string" column="bat_uti_modi" length="150" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="batDatModi" type="datetime" column="bat_dat_modi" nullable="true"/>
+  </entity>
+</doctrine-mapping>

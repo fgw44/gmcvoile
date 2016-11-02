@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Saison" table="saison">
+    <id name="saiAnnee" type="smallint" column="sai_annee">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="saiIsactive" type="boolean" column="sai_isactive" nullable="false">
+      <options>
+        <option name="comment">Est en cours (o/n)</option>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <many-to-many field="licAdhNum" target-entity="Adherent" inversed-by="licSaiAnnee" fetch="LAZY">
+      <join-table name="licence">
+        <join-columns>
+          <join-column name="lic_sai_annee" referenced-column-name="sai_annee"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="lic_adh_num" referenced-column-name="adh_num"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+    <many-to-many field="mtaTyaCode" target-entity="TypeAdhesion" mapped-by="mtaSaiAnnee" fetch="LAZY"/>
+  </entity>
+</doctrine-mapping>
